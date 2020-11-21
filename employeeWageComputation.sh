@@ -9,13 +9,17 @@ totalWorkingDays=0
 totalWorkHours=0  
 totalsalary=0
 #Declaring dictionary 
-declare -A dayWiseWages 
+declare -A empDailyWage
+declare -A totalSalaryDict
+declare -A  Day
+
 function  calculateDailyWage() 
 { 
         empHrs=$1 
         daySalary=$(( $empHrs * $EMP_RATE_PER_HR )) 
         echo $daySalary 
-} 
+}
+ 
  function getWorkingHours() 
 { 
         case $1 in 
@@ -31,6 +35,7 @@ function  calculateDailyWage()
  
 while(( $totalWorkHours <  $MAX_HRS_IN_MONTH && $totalWorkingDays < $NUM_WORKING_DAYS )) 
 do 
+        Day[$totalWorkingDays]="$totalWorkingDays"
         ((totalWorkingDays++)) 
         #Calling function getWorkingHours by passing random number 
         workHours="$( getWorkingHours $(( RANDOM%3 )) )"  
@@ -45,8 +50,7 @@ do
         
 done    
 totalSalary=$(( $totalWorkHours * $EMP_RATE_PER_HR )); 
-
-echo -e "empDailyWAge : ${empDailyWage[@]}"
+echo -e " Day:${Day[@]}   empDailyWAge : ${empDailyWage[@]}"
 echo -e "totalWage : ${totalSalaryDict[@]}"
 echo "TOTAL SALARY : $totalSalary"
 
